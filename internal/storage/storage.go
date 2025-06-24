@@ -54,9 +54,7 @@ func (s *TaskStorage) Update(id, status, result string) bool {
 
 	task.Status = status
 	task.UpdatedAT = time.Now()
-	if result != "" {
-		task.Result = result
-	}
+	task.Result = result
 
 	return true
 }

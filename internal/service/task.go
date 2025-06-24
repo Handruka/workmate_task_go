@@ -24,7 +24,6 @@ func (s *TaskService) StartNewTask() *model.Task {
 		log.Printf("Task %s started", taskID)
 
 		time.Sleep(5 * time.Second)
-
 		s.store.Update(taskID, "готово", "Задача выполнена успешно")
 		log.Printf("Task %s выполнена", taskID)
 
