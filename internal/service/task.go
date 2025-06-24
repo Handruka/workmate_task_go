@@ -32,3 +32,15 @@ func (s *TaskService) StartNewTask() *model.Task {
 
 	return task
 }
+
+func (s *TaskService) DeleteByID(id string) bool {
+	return s.store.Delete(id)
+}
+
+func (s *TaskService) GetByID(id string) (*model.Task, bool) {
+	return s.store.Get(id)
+}
+
+func (s *TaskService) GetAll() []*model.Task {
+	return s.store.GetAll()
+}

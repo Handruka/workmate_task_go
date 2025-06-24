@@ -68,3 +68,14 @@ func (s *TaskStorage) Delete(id string) bool {
 	}
 	return false
 }
+
+func (s *TaskStorage) GetAll() []*model.Task {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+
+	tasks := make([]*model.Task, 0, len(s.Tasks))
+	for _, task := range s.Tasks {
+		tasks = append(tasks, task)
+	}
+	return tasks
+}

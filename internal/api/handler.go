@@ -4,8 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"workmate/internal/service"
-
+	"github.com/Handruka/workmate_task_go.git/internal/service"
 	"github.com/gorilla/mux"
 )
 
@@ -21,6 +20,8 @@ func (h *Handler) RegisterRoutes(r *mux.Router) {
 	r.HandleFunc("/task", h.createTask).Methods("POST")
 	r.HandleFunc("/task/{id}", h.getTask).Methods("GET")
 	r.HandleFunc("/task/{id}", h.deleteTask).Methods("DELETE")
+	r.HandleFunc("/tasks", h.getAllTasks).Methods("GET")
+
 }
 
 func (h *Handler) createTask(w http.ResponseWriter, r *http.Request) {
@@ -53,4 +54,11 @@ func (h *Handler) deleteTask(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusNoContent)
+}
+
+func (h *Handler) getAllTasks(w http.ResponseWriter, r *http.Request) {
+	tasks := h.taskService.GetAll()
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(tasks)
 }
